@@ -1,53 +1,140 @@
-# Live-Event-Streaming-Using-Apache-Kafka
+<div align="center">
 
-🚀 DDoS Detection System using Apache Kafka
-📌 Project Overview
+# 🛡️ DDoS Shield
 
-This project implements a real-time DDoS attack detection system using Apache Kafka and Python.
-It simulates network traffic, detects abnormal high traffic, and generates alerts with a live dashboard.
+### *Real-time Network Attack Detection System*
 
-⚙️ Requirements
-Python 3.x
-Apache Kafka (running)
-Python libraries:
-pip install kafka-python pandas matplotlib streamlit
-▶️ How to Run (Step-by-Step)
-✅ 1. Start Kafka Server
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.25+-red.svg)](https://streamlit.io/)
+[![Scapy](https://img.shields.io/badge/Scapy-2.4.5+-green.svg)](https://scapy.net/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20|%20Linux%20|%20macOS-lightgrey)]()
 
-Open CMD:
+**Detect DDoS attacks in real-time | Get instant email alerts | Monitor network traffic**
 
-cd C:\kafka\kafka_2.13-4.2.0
-bin\windows\kafka-server-start.bat config\server.properties
+[Features](#features) • [Quick Start](#quick-start) • [Installation](#installation) • [Dashboard](#dashboard) • [Email Setup](#email-alerts-setup) • [FAQ](#faq)
 
-👉 Keep this terminal OPEN
+</div>
 
-✅ 2. Create Kafka Topic
+---
 
-Open new CMD:
+## 📋 Table of Contents
 
-cd C:\kafka\kafka_2.13-4.2.0
-bin\windows\kafka-topics.bat --create --topic traffic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
-✅ 3. Run Producer (Traffic Generator)
-python traffic_generator.py
+- [Overview](#overview)
+- [Features](#features)
+- [System Architecture](#system-architecture)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Email Alerts Setup](#email-alerts-setup)
+- [Dashboard Guide](#dashboard-guide)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [Troubleshooting](#troubleshooting)
+- [FAQ](#faq)
+- [Security Recommendations](#security-recommendations)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-👉 This simulates network traffic
+---
 
-✅ 4. Run Consumer (DDoS Detector)
-python ddos_detector.py
+## 📖 Overview
 
-👉 Detects DDoS attacks and prints alerts
+**DDoS Shield** is a powerful, real-time DDoS (Distributed Denial of Service) attack detection system that captures live network traffic, identifies abnormal patterns using configurable thresholds, and sends instant email alerts when attacks are detected. The system features a beautiful, cyberpunk-style dashboard for visualizing attack metrics and exporting data for further analysis.
 
-✅ 5. Run Dashboard
-streamlit run dashboard_live.py
+### Why DDoS Shield?
 
-👉 Opens browser with live dashboard
+- 🚀 **Real-time detection** - Instant attack identification
+- 📧 **Email notifications** - Get alerts immediately
+- 📊 **Beautiful dashboard** - Visualize attack patterns
+- 💾 **CSV export** - Save data for analysis
+- 🔧 **Easy to configure** - Adjust thresholds easily
+- 💰 **100% Free** - Open source and free to use
 
-📊 Output
-Alerts stored in:
-alerts.json
-Example alert:
-{"ip": "192.168.1.5", "attack": "DDoS", "severity": "HIGH"}
-⚡ Features
-Real-time traffic simulation
-DDoS attack detection
-Kafka-based streaming pipeline
+---
+
+## ✨ Features
+
+### Core Features
+| Feature | Description |
+|---------|-------------|
+| 🔍 **Real-time Packet Capture** | Captures live network traffic using Scapy library |
+| 🎯 **Automated DDoS Detection** | Identifies potential attacks based on configurable thresholds |
+| 📧 **Email Notifications** | Instant email alerts with attack details and recommendations |
+| 📊 **Live Dashboard** | Beautiful cyberpunk-style dashboard with real-time updates |
+| 📥 **CSV Export** | Export all alert data for further analysis |
+| 📈 **Attack Statistics** | Visual charts and metrics for attack patterns |
+| 🔄 **Auto-refresh** | Dashboard automatically updates with new alerts |
+| 💻 **Cross-platform** | Works on Windows, Linux, and macOS |
+
+### Detection Capabilities
+- Threshold-based detection (default: 5 requests/10 seconds)
+- Time-window analysis for accurate detection
+- IP-based attack tracking
+- Severity classification (HIGH/LOW)
+- Email cooldown to prevent spam
+
+---
+
+## 🏗️ System Architecture
+┌─────────────────────────────────────────────────────────────┐
+│ DDoS SHIELD SYSTEM │
+└─────────────────────────────────────────────────────────────┘
+│
+┌─────────────────────┼─────────────────────┐
+│ │ │
+▼ ▼ ▼
+┌───────────────┐ ┌───────────────┐ ┌───────────────┐
+│ capture │────▶│ logs │────▶│ detector │
+│ .py │ │ .json │ │ .py │
+│ │ │ │ │ │
+│ • Sniff packets│ │ • Store logs │ │ • Analyze │
+│ • Extract IPs │ │ • Timestamp │ │ • Check threshold│
+│ • Save to JSON│ │ • Protocol │ │ • Generate alerts│
+└───────────────┘ └───────────────┘ └───────────────┘
+│ │
+▼ ▼
+┌───────────────┐ ┌───────────────┐
+│ alerts │ │ email │
+│ .json │ │ alerts │
+│ │ │ │
+│ • Attack IPs │ │ • Send to │
+│ • Counts │ │ Gmail │
+│ • Severity │ │ • HTML format │
+└───────────────┘ └───────────────┘
+│
+▼
+┌───────────────┐
+│ dashboard │
+│ .py │
+│ │
+│ • Live view │
+│ • Charts │
+│ • CSV export │
+└───────────────┘
+
+---
+
+## 📦 Prerequisites
+
+### System Requirements
+- **Operating System:** Windows 10/11, Linux (Ubuntu 18.04+), macOS 10.15+
+- **Python Version:** 3.7 or higher
+- **RAM:** Minimum 2GB (4GB recommended)
+- **Storage:** 500MB free space
+- **Network:** Administrator/root privileges for packet capture
+- **Internet:** Required for email alerts
+
+## 📋 Installation Guide
+
+### Step 1: Install Python
+
+Download and install Python from https://python.org
+
+Verify installation:
+```bash
+python --version
+
+
